@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class dataBaseService {
-  final String uid;
-  dataBaseService({required this.uid});
+  final String? uid;
+  dataBaseService({this.uid});
 
   final CollectionReference brewCollection =
       FirebaseFirestore.instance.collection("brew");
@@ -11,5 +11,12 @@ class dataBaseService {
     return await brewCollection
         .doc(uid)
         .set({'sugars': sugar, 'name': name, 'strength': strength});
+  }
+
+
+
+  // getting data from document
+  Stream<QuerySnapshot> get brews {
+    return brewCollection.snapshots();
   }
 }
