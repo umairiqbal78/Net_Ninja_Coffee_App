@@ -1,3 +1,4 @@
+import 'package:brew_crew_coffee_app/models/brew.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class dataBaseService {
@@ -7,16 +8,25 @@ class dataBaseService {
   final CollectionReference brewCollection =
       FirebaseFirestore.instance.collection("brew");
 
-  Future updateUserCollection(String sugar, String name, int strength) async {
+  Future updateUserCollection(String name,int strength, String sugars, ) async {
     return await brewCollection
         .doc(uid)
-        .set({'sugars': sugar, 'name': name, 'strength': strength});
+        .set({'name': name,'strength': strength, 'sugars': sugars, });
   }
 
-
+  // brew list from snapshot
+  List<Brew> _brewListFromSnapShot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return Brew(
+        name: doc.get('name') ?? 'no name',
+        strength: doc.get('strength') ?? 0,
+        sugars: doc.get('sugars') ?? '0',
+      );
+    }).toList();
+  }
 
   // getting data from document
-  Stream<QuerySnapshot> get brews {
-    return brewCollection.snapshots();
+  Stream<List<Brew>> get brews {
+    return brewCollection.snapshots().map(_brewListFromSnapShot);
   }
 }

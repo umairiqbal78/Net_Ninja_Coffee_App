@@ -7,6 +7,7 @@ class AuthService {
 
 //custom user obj based on firebaseUser
    UserUid? _userFromFirebaseuser(User user) {
+    // ignore: unnecessary_null_comparison
     if (user != null) {
       return UserUid(uid: user.uid);
     } else {
@@ -31,7 +32,7 @@ class AuthService {
 
 // creating document on firebase firestore
       await dataBaseService(uid: user!.uid)
-          .updateUserCollection('0', 'new member', 100);
+          .updateUserCollection('new member',  100,'0',);
       return _userFromFirebaseuser(user);
     } catch (e) {
       print(e.toString());
