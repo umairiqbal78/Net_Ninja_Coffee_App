@@ -1,4 +1,5 @@
 import 'package:brew_crew_coffee_app/models/brew.dart';
+import 'package:brew_crew_coffee_app/screens/home/settings_form.dart';
 
 import 'package:brew_crew_coffee_app/screens/services/auth.dart';
 import 'package:brew_crew_coffee_app/screens/services/database.dart';
@@ -25,7 +26,7 @@ class _HomeState extends State<Home> {
           builder: (context) {
             return Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-              child: Text("Bottom Sheet"),
+              child: SettingsForm(),
             );
           });
     }
